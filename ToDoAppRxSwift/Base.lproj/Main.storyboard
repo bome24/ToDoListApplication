@@ -112,8 +112,15 @@
                     <navigationItem key="navigationItem" title="Add Task" id="Qjc-bt-nkT">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="vsH-nK-UpX">
                             <color key="tintColor" systemColor="systemIndigoColor"/>
+                            <connections>
+                                <action selector="saveTask" destination="03v-L6-dcg" id="o2y-bD-ifu"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="prioritySegControl" destination="spd-VY-F35" id="vsr-c3-pul"/>
+                        <outlet property="textField" destination="anc-Jp-XDB" id="DDy-gc-dcv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iU4-9v-0WL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

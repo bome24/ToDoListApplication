@@ -1,0 +1,6 @@
+framework module Pods_ToDoAppRxSwift {
+  umbrella header "Pods-ToDoAppRxSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}
