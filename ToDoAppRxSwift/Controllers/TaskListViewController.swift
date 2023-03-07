@@ -7,13 +7,23 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
 class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var prioritySegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
+    private var tasks = BehaviorRelay<[Task]>(value: [])
+    
     let disposeBag = DisposeBag()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.prioritySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.selected)
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -40,16 +50,15 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         addTVC.taskSubjectObservable
             .subscribe(onNext: { task in
                 
-                print(task)
+                let priority = Priority(rawValue: self.prioritySegmentedControl.selectedSegmentIndex - 1)
+                
+                var existingTasks = self.tasks.value
+                existingTasks.append(task)
+                self.tasks.accept(existingTasks)
                 
             }).disposed(by: disposeBag)
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.prioritySegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.selected)
-    }
     
 }
