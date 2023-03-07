@@ -7,7 +7,7 @@
 
 import UIKit
 import RxSwift
-import RxRelay
+import RxCocoa
 
 class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -31,12 +31,14 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.filteredTasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath)
+        
+        cell.textLabel?.text = self.filteredTasks[indexPath.row].title
         
         return cell
     }
@@ -70,16 +72,23 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    private func updateTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     private func filterTasks(by priority: Priority?) {
         
         if priority == nil {
             self.filteredTasks = self.tasks.value
+            self.updateTableView()
         } else {
             self.tasks.map { tasks in
                 return tasks.filter { $0.priority == priority! }
             }.subscribe(onNext: { [weak self] tasks in
                 self?.filteredTasks = tasks
-                print(tasks)
+                self?.updateTableView()
             }).disposed(by: disposeBag)
         }
         
