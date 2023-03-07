@@ -25,6 +25,9 @@
                                     <segment title="Low"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" systemColor="systemIndigoColor"/>
+                                <connections>
+                                    <action selector="priorityChangedWithSegmentedControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="2HO-4n-S5j"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XXg-ZZ-oZ1">
                                 <rect key="frame" x="0.0" y="150" width="393" height="668"/>
